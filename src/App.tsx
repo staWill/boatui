@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {useKeycloak} from '@react-keycloak/web';
+import BoatList from "./components/BoatList";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const { keycloak, initialized } = useKeycloak();
+
+    if (!initialized) {
+        return <div>Loading...</div>;
+    }
+
+    if (!keycloak.authenticated) {
+        return (
+            <div>
+                <h1>Unauthorized</h1>
+                <button onClick={() => keycloak.login()}>Login</button>
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            <BoatList></BoatList>
+            <button onClick={() => keycloak.logout()}>Logout</button>
+        </div>
+    );
 }
 
 export default App;
