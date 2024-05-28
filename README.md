@@ -1,3 +1,9 @@
+
+## Local Development
+Start boatapi and keycloak.
+use user alice password alice to signin
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
